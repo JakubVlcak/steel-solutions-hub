@@ -4,19 +4,17 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { companyInfo } from '@/data/translations';
 
 const Footer = () => {
-  const { language, t } = useLanguage();
-
-  const getPath = (skPath: string, enPath: string) => {
-    return language === 'en' ? enPath : skPath;
-  };
+  const { language, t, getLocalizedPath } = useLanguage();
 
   const quickLinks = [
-    { label: t('Challenges', 'Challenges'), path: getPath('/challenges', '/en/challenges') },
-    { label: t('Produkty', 'Products'), path: getPath('/produkty', '/en/products') },
-    { label: t('Hriadele', 'Shafts'), path: getPath('/hriadele', '/en/shafts') },
-    { label: t('Galéria', 'Gallery'), path: getPath('/galeria', '/en/gallery') },
-    { label: t('Kontakt', 'Contact'), path: getPath('/kontakt', '/en/contact') },
+    { label: t('Challenges', 'Challenges'), path: getLocalizedPath('/challenges', '/en/challenges') },
+    { label: t('Produkty', 'Products'), path: getLocalizedPath('/produkty', '/en/products') },
+    { label: t('Hriadele', 'Shafts'), path: getLocalizedPath('/hriadele', '/en/shafts') },
+    { label: t('Galéria', 'Gallery'), path: getLocalizedPath('/galeria', '/en/gallery') },
+    { label: t('Kontakt', 'Contact'), path: getLocalizedPath('/kontakt', '/en/contact') },
   ];
+
+  const homePath = language === 'en' ? '/en' : '/';
 
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -24,7 +22,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Column 1 - Logo & Description */}
           <div className="lg:col-span-1">
-            <Link to={language === 'en' ? '/en' : '/'} className="inline-block mb-4">
+            <Link to={homePath} className="inline-block mb-4">
               <span className="font-display font-bold text-2xl uppercase tracking-wider">
                 WORK<span className="text-accent">STEEL</span>
               </span>
@@ -142,12 +140,12 @@ const Footer = () => {
               © {new Date().getFullYear()} {companyInfo.name}. {t('Všetky práva vyhradené.', 'All rights reserved.')}
             </p>
             <div className="flex items-center gap-6">
-              <Link to="#" className="hover:text-accent transition-colors">
+              <span className="hover:text-accent transition-colors cursor-pointer">
                 {t('Ochrana osobných údajov', 'Privacy Policy')}
-              </Link>
-              <Link to="#" className="hover:text-accent transition-colors">
+              </span>
+              <span className="hover:text-accent transition-colors cursor-pointer">
                 Cookies
-              </Link>
+              </span>
             </div>
           </div>
         </div>

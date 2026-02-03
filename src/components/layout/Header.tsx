@@ -6,7 +6,7 @@ import { challenges, products, companyInfo } from '@/data/translations';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, t, getLocalizedPath } = useLanguage();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -25,47 +25,45 @@ const Header = () => {
     setOpenDropdown(null);
   }, [location.pathname]);
 
-  const getPath = (skPath: string, enPath: string) => {
-    return language === 'en' ? enPath : skPath;
-  };
-
   const navItems = [
     {
       label: t('Challenges', 'Challenges'),
-      path: getPath('/challenges', '/en/challenges'),
+      path: getLocalizedPath('/challenges', '/en/challenges'),
       dropdown: challenges.map(c => ({
         label: language === 'en' ? c.nameEn : c.nameSk,
-        path: getPath(`/challenges/${c.slugSk}`, `/en/challenges/${c.slugEn}`),
+        path: getLocalizedPath(`/challenges/${c.slugSk}`, `/en/challenges/${c.slugEn}`),
       })),
     },
     {
       label: t('Produkty', 'Products'),
-      path: getPath('/produkty', '/en/products'),
+      path: getLocalizedPath('/produkty', '/en/products'),
       dropdown: [
-        { label: t('Prehľad produktov', 'Products Overview'), path: getPath('/produkty', '/en/products') },
+        { label: t('Prehľad produktov', 'Products Overview'), path: getLocalizedPath('/produkty', '/en/products') },
         ...products.map(p => ({
           label: language === 'en' ? p.nameEn : p.nameSk,
-          path: getPath(`/produkty/${p.slugSk}`, `/en/products/${p.slugEn}`),
+          path: getLocalizedPath(`/produkty/${p.slugSk}`, `/en/products/${p.slugEn}`),
         })),
       ],
     },
     {
       label: t('Hriadele', 'Shafts'),
-      path: getPath('/hriadele', '/en/shafts'),
+      path: getLocalizedPath('/hriadele', '/en/shafts'),
       dropdown: [
-        { label: t('Výroba hriadeľov', 'Shaft Manufacturing'), path: getPath('/hriadele#vyroba', '/en/shafts#manufacturing') },
-        { label: t('Servis hriadeľov', 'Shaft Service'), path: getPath('/hriadele#servis', '/en/shafts#service') },
+        { label: t('Výroba hriadeľov', 'Shaft Manufacturing'), path: getLocalizedPath('/hriadele#vyroba', '/en/shafts#manufacturing') },
+        { label: t('Servis hriadeľov', 'Shaft Service'), path: getLocalizedPath('/hriadele#servis', '/en/shafts#service') },
       ],
     },
     {
       label: t('Galéria', 'Gallery'),
-      path: getPath('/galeria', '/en/gallery'),
+      path: getLocalizedPath('/galeria', '/en/gallery'),
     },
     {
       label: t('Kontakt', 'Contact'),
-      path: getPath('/kontakt', '/en/contact'),
+      path: getLocalizedPath('/kontakt', '/en/contact'),
     },
   ];
+
+  const homePath = language === 'en' ? '/en' : '/';
 
   return (
     <header 
@@ -78,7 +76,7 @@ const Header = () => {
       <div className="container-industrial">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to={language === 'en' ? '/en' : '/'} className="flex items-center">
+          <Link to={homePath} className="flex items-center">
             <span className={`font-display font-bold text-primary-foreground uppercase tracking-wider transition-all duration-300 ${
               isScrolled ? 'text-xl' : 'text-2xl'
             }`}>

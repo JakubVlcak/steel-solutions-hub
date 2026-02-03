@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 type Language = 'sk' | 'en';
 
@@ -7,6 +6,7 @@ interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (sk: string, en: string) => string;
+  getLocalizedPath: (skPath: string, enPath: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -24,21 +24,27 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const [language, setLanguageState] = useState<Language>(() => {
+    // Check initial path for language
+    if (typeof window !== 'undefined') {
+      return window.location.pathname.startsWith('/en') ? 'en' : 'sk';
+    }
+    return 'sk';
+  });
   
-  const getLanguageFromPath = (): Language => {
-    return location.pathname.startsWith('/en') ? 'en' : 'sk';
-  };
-  
-  const [language, setLanguageState] = useState<Language>(getLanguageFromPath);
-  
+  // Listen for URL changes
   useEffect(() => {
-    setLanguageState(getLanguageFromPath());
-  }, [location.pathname]);
+    const handleLocationChange = () => {
+      const isEnglish = window.location.pathname.startsWith('/en');
+      setLanguageState(isEnglish ? 'en' : 'sk');
+    };
+    
+    window.addEventListener('popstate', handleLocationChange);
+    return () => window.removeEventListener('popstate', handleLocationChange);
+  }, []);
   
   const setLanguage = (lang: Language) => {
-    const currentPath = location.pathname;
+    const currentPath = window.location.pathname;
     let newPath: string;
     
     if (lang === 'en') {
@@ -90,12 +96,16 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         } else if (currentPath.startsWith('/en/shafts/')) {
           newPath = currentPath.replace('/en/shafts/', '/hriadele/');
         } else {
-          newPath = pathMap[currentPath] || currentPath.replace('/en', '');
+          newPath = pathMap[currentPath] || currentPath.replace('/en', '') || '/';
         }
       }
     }
     
-    navigate(newPath);
+    // Use window.location for navigation to avoid hook issues
+    if (newPath !== currentPath) {
+      window.history.pushState({}, '', newPath);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
     setLanguageState(lang);
   };
   
@@ -103,8 +113,12 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     return language === 'en' ? en : sk;
   };
   
+  const getLocalizedPath = (skPath: string, enPath: string): string => {
+    return language === 'en' ? enPath : skPath;
+  };
+  
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, getLocalizedPath }}>
       {children}
     </LanguageContext.Provider>
   );
