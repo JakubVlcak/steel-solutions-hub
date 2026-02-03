@@ -58,7 +58,7 @@ export default {
         },
       },
       fontFamily: {
-        display: ["'Barlow Condensed'", "sans-serif"],
+        display: ["'Capsmall'", "sans-serif"],
         body: ["'Source Sans 3'", "sans-serif"],
       },
       borderRadius: {

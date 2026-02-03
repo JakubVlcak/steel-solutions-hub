@@ -27,15 +27,6 @@ export const challenges = [
     descriptionEn: 'Powerful machines for processing automotive waste and light scrap.',
   },
   {
-    id: 'cfrp-gfrp',
-    slugSk: 'uhlikove-vlakna',
-    slugEn: 'cfrp-gfrp',
-    nameSk: 'Odpad z uhlíkových vlákien (CFRP/GFRP)',
-    nameEn: 'CFRP/GFRP Waste',
-    descriptionSk: 'Bezpečné spracovanie kompozitných materiálov z uhlíkových vlákien.',
-    descriptionEn: 'Safe processing of carbon fiber composite materials.',
-  },
-  {
     id: 'wood-waste',
     slugSk: 'odpadove-drevo',
     slugEn: 'wood-waste',
@@ -110,7 +101,7 @@ export const companyInfo = {
 
 export const navigation = {
   challenges: {
-    sk: 'Challenges',
+    sk: 'Výzvy',
     en: 'Challenges',
   },
   products: {

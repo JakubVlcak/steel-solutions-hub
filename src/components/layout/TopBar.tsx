@@ -66,15 +66,6 @@ const TopBar = () => {
               >
                 <Instagram className="w-4 h-4" />
               </a>
-              <a 
-                href={companyInfo.social.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-4 h-4" />
-              </a>
             </div>
           </div>
         </div>

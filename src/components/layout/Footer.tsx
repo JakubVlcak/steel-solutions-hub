@@ -7,7 +7,7 @@ const Footer = () => {
   const { language, t, getLocalizedPath } = useLanguage();
 
   const quickLinks = [
-    { label: t('Challenges', 'Challenges'), path: getLocalizedPath('/challenges', '/en/challenges') },
+    { label: t('Výzvy', 'Challenges'), path: getLocalizedPath('/challenges', '/en/challenges') },
     { label: t('Produkty', 'Products'), path: getLocalizedPath('/produkty', '/en/products') },
     { label: t('Hriadele', 'Shafts'), path: getLocalizedPath('/hriadele', '/en/shafts') },
     { label: t('Galéria', 'Gallery'), path: getLocalizedPath('/galeria', '/en/gallery') },
@@ -118,15 +118,8 @@ const Footer = () => {
               >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a 
-                href={companyInfo.social.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-steel-medium rounded-sm flex items-center justify-center text-primary-foreground/70 hover:bg-accent hover:text-accent-foreground transition-all"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-5 h-5" />
-              </a>
+             
+          
             </div>
           </div>
         </div>

@@ -25,49 +25,251 @@ const productSpecs: Record<string, { specs: Array<{ icon: any; labelSk: string; 
   },
   'dual-shaft-2-2': {
     specs: [
-      { icon: Ruler, labelSk: 'Rozmery (DxŠxV)', labelEn: 'Dimensions (LxWxH)', value: '4200 x 2400 x 3100 mm' },
-      { icon: Weight, labelSk: 'Hmotnosť', labelEn: 'Weight', value: '18 000 kg' },
-      { icon: Zap, labelSk: 'Výkon motora', labelEn: 'Motor Power', value: '2 x 110 kW' },
-      { icon: Gauge, labelSk: 'Kapacita', labelEn: 'Capacity', value: '20-35 t/h' },
+      { icon: Ruler, labelSk: 'Pracovné rozmery (DxŠxV)', labelEn: 'Working Dimensions (LxWxH)', value: '14,5 x 2,8 x 3,3 m' },
+      { icon: Weight, labelSk: 'Hmotnosť (plná výbava)', labelEn: 'Weight (full equipment)', value: '32 500 kg' },
+      { icon: Zap, labelSk: 'Výkon motora', labelEn: 'Motor Power', value: '368 kW (diesel) / 2 x 250 kW (electric)' },
+      { icon: Gauge, labelSk: 'Kapacita (drevo)', labelEn: 'Capacity (wood)', value: '32-68 t/h' },
     ],
   },
 };
 
-const productDescriptions: Record<string, { overviewSk: string; overviewEn: string; featuresSk: string[]; featuresEn: string[] }> = {
+const productDescriptions: Record<string, { overviewSk: string; overviewEn: string; featuresSk: string[]; featuresEn: string[]; detailedSk?: string; detailedEn?: string; optionsSk?: string[]; optionsEn?: string[] }> = {
   'hps-1-5': {
-    overviewSk: 'Phoenix Hydro Power Schredder HPS 1.5 je výkonný hydraulický drvič navrhnutý pre náročné priemyselné aplikácie. Vďaka dvojhriadeľovej konštrukcii a hydraulickému pohonu poskytuje spoľahlivý a konzistentný výkon pri spracovaní širokého spektra materiálov.',
-    overviewEn: 'Phoenix Hydro Power Shredder HPS 1.5 is a powerful hydraulic shredder designed for demanding industrial applications. Thanks to the dual-shaft design and hydraulic drive, it provides reliable and consistent performance when processing a wide range of materials.',
+    overviewSk: 'Phoenix Hydro Power Shredder – HPS 1.5 je univerzálny drvič, ktorý je univerzálne použiteľný v mobilných, polomobilných a stacionárnych aplikáciách a je jedným z najvýkonnejších dvojhriadeľových drvičov vo svojej triede. Ideálny preddrvič pre takmer všetky materiály.',
+    overviewEn: 'Phoenix Hydro Power Shredder – HPS 1.5 is a universal shredder that can be used universally in mobile, semi-mobile and stationary applications and is one of the most powerful dual-shaft shredders in its class. Ideal pre-shredder for almost all materials.',
+    detailedSk: `V rôznych aplikáciách, ako je drevný odpad, biomasa, podpníky, odpad, hliníkový a elektronický šrot a mnoho ďalších, drvič Hydro-Power preukazuje svoje jasné výhody a poskytuje vynikajúci výkon s vysokou priepustnosťou a presviedča vysokou kvalitou drvenia, a to aj v najťažších každodenných podmienkach.
+
+Vyspelá koncepcia strojov je založená na moderných a vysoko kvalitných strojových komponentoch, ktoré sa vyznačujú dlhou životnosťou.
+
+Dvojhriadeľový drvič je k dispozícii v 2 požiadavkách na podvozok v závislosti od potrieb mobility. Pre jednoduchý pohyb na mieste recyklácie alebo pre prepravu hákovým nakladačom vo verzii s nápravou kolies a ojom. Alebo s koľajnicovým systémom pre manévrovanie a pohyb v oblasti.
+
+Do nášho dvojhriadeľového drviča inštalujeme dieselové motory najnovšej generácie v súlade s aktuálnymi normami pre výfukové plyny s nízkou spotrebou paliva, obzvlášť tiché a energeticky úsporné.
+
+Prevodovka využíva hydrostatický pohon s regulovaným dvojitým čerpadlom a hydraulické motory so zosilnenou prevodovkou s maximálnym krútiacim momentom až 260 000 Nm.
+
+Drvič Hydro Power má modulárnu konštrukciu a je vybavený pre vaše individuálne požiadavky. Modulárna konštrukcia umožňuje obzvlášť jednoduchú údržbu a servis šrotu a jeho vynikajúca dostupnosť a stabilná a robustná konštrukcia ho robia obzvlášť odolným.
+
+Vďaka vyspelej koncepcii a konštrukcii stroja pracuje drvič Hydro Power s obzvlášť nízkou úrovňou prachu; chladenie zabezpečuje voliteľný chladiaci systém so zabudovaným špirálovým ventilátorom.
+
+Vďaka inovatívnej technológii strojov a riadenia dosahuje drvič Hydro Power vysoký výkon až 60 t/h pri extrémne nízkej spotrebe energie.
+
+Vďaka efektívnemu riadeniu stroja dvojhriadeľový drvič šetrí naftu a vyznačuje sa vysokou účinnosťou pri používaní.
+
+Vďaka novej architektúre hriadeľa dosahuje drvič Phoenix Hydro Power agresívne podávanie, je necitlivý na cudzie telesá a presvedčí nízkymi nákladmi na opotrebenie.
+
+Vstavaná funkcia reverzácie chráni hriadele pred poškodením. Vďaka vhodnej konfigurácii hriadeľa je možné dosiahnuť presne definované výstupné veľkosti a pokryť širokú škálu rôznych aplikačných materiálov.`,
+    detailedEn: `In various applications such as wood waste, biomass, stumps, waste, aluminum and electronic scrap and many others, the Hydro-Power shredder demonstrates its clear advantages and provides excellent performance with high throughput and convinces with high shredding quality, even in the toughest everyday conditions.
+
+The advanced machine concept is based on modern and high-quality machine components that are characterized by a long service life.
+
+The dual-shaft shredder is available in 2 chassis requirements depending on mobility needs. For easy movement at the recycling site or for transport by hook loader in the version with wheel axle and eye. Or with a rail system for maneuvering and movement in the area.
+
+We install latest generation diesel engines in our dual-shaft shredder in accordance with current exhaust gas standards with low fuel consumption, particularly quiet and energy efficient.
+
+The transmission uses hydrostatic drive with regulated double pump and hydraulic motors with reinforced gearbox with maximum torque up to 260,000 Nm.
+
+The Hydro Power shredder has a modular design and is equipped for your individual requirements. The modular design allows particularly easy maintenance and service of the scrap and its excellent accessibility and stable and robust construction make it particularly durable.
+
+Thanks to the advanced concept and design of the machine, the Hydro Power shredder works with particularly low dust levels; cooling is provided by an optional cooling system with built-in spiral fan.
+
+Thanks to innovative machine and control technology, the Hydro Power shredder achieves high performance of up to 60 t/h with extremely low energy consumption.
+
+Thanks to efficient machine control, the dual-shaft shredder saves diesel and is characterized by high efficiency in use.
+
+Thanks to the new shaft architecture, the Phoenix Hydro Power shredder achieves aggressive feeding, is insensitive to foreign objects and convinces with low wear costs.
+
+The built-in reversing function protects the shafts from damage. Thanks to suitable shaft configuration, precisely defined output sizes can be achieved and cover a wide range of different application materials.`,
     featuresSk: [
-      'Hydraulický pohon pre maximálny krútiaci moment',
-      'Robustná dvojhriadeľová konštrukcia',
-      'Automatická ochrana proti preťaženiu',
-      'Jednoduché nastavenie veľkosti výstupnej frakcie',
-      'Nízke prevádzkové náklady',
+      'Univerzálne použiteľný v mobilných, polomobilných a stacionárnych aplikáciách',
+      'Jeden z najvýkonnejších dvojhriadeľových drvičov vo svojej triede',
+      'Vysoký výkon až 60 t/h pri nízkej spotrebe energie',
+      'Maximálny krútiaci moment až 260 000 Nm',
+      'Modulárna konštrukcia pre jednoduchú údržbu',
+      'Dieselové motory najnovšej generácie s nízkou spotrebou paliva',
+      'Hydrostatický pohon s regulovaným dvojitým čerpadlom',
+      'Vstavaná funkcia reverzácie na ochranu hriadeľov',
+      'Nová architektúra hriadeľa pre agresívne podávanie',
+      'Necitlivý na cudzie telesá',
+      'Nízke náklady na opotrebenie',
+      'Obzvlášť nízka úroveň prachu',
     ],
     featuresEn: [
-      'Hydraulic drive for maximum torque',
-      'Robust dual-shaft construction',
-      'Automatic overload protection',
-      'Easy adjustment of output fraction size',
-      'Low operating costs',
+      'Universally applicable in mobile, semi-mobile and stationary applications',
+      'One of the most powerful dual-shaft shredders in its class',
+      'High performance up to 60 t/h with low energy consumption',
+      'Maximum torque up to 260,000 Nm',
+      'Modular design for easy maintenance',
+      'Latest generation diesel engines with low fuel consumption',
+      'Hydrostatic drive with regulated double pump',
+      'Built-in reversing function to protect shafts',
+      'New shaft architecture for aggressive feeding',
+      'Insensitive to foreign objects',
+      'Low wear costs',
+      'Particularly low dust levels',
+    ],
+    optionsSk: [
+      'Náprava kolesa - ľahké premiestňovanie na mieste recyklácie',
+      'Ťažná tyč - na pohyb stroja v oblasti drvenia',
+      'Podvozok - pásový systém, dostupný aj s pásovými podložkami',
+      'Permanentný magnet nad pás - na výber materiálu FE',
+      'Špeciálna farba',
+      'Po strihaní hrebeňom - pre rovnomerné zrno',
+      'Rozšírenie zásobníka - väčší objem zásobníka pre kŕmny materiál',
+      'Systém postrekovania vodou - zníženie prašnosti',
+      'Zimný balík - naftové a hydraulické kúrenie',
+    ],
+    optionsEn: [
+      'Wheel axle - easy relocation at recycling site',
+      'Drawbar - for moving the machine in the crushing area',
+      'Chassis - track system, also available with track pads',
+      'Permanent magnet over belt - for FE material selection',
+      'Special paint',
+      'After comb shearing - for uniform grain',
+      'Hopper extension - larger hopper volume for feed material',
+      'Water spray system - dust reduction',
+      'Winter package - diesel and hydraulic heating',
     ],
   },
   'dual-shaft-2-2': {
     overviewSk: 'Univerzálny dvojhriadeľový drvič 2.2 je navrhnutý pre maximálnu flexibilitu a výkon. Jeho modulárna konštrukcia umožňuje prispôsobenie pre rôzne typy materiálov a požiadavky na výstupnú frakciu.',
     overviewEn: 'Universal Dual Shaft Shredder 2.2 is designed for maximum flexibility and performance. Its modular design allows customization for various types of materials and output fraction requirements.',
+    detailedSk: `Požadovaný materiál:
+Odpadové drevo, staré pneumatiky, železničné podvaly, biomasa, zelený odpad, plasty, palmy, objemný odpad, guľatina, korene, komunálny odpad, stavebný a demolačný odpad (C&D), šrot, hliníkové profily, kovy, matrace, koberce, atď.
+
+Kapacita:
+Variabilná, v závislosti od vstupného materiálu, typu drviacich hriadeľov a rovnomernosti podávania. Príklad: Drevo cca 32 – 68 t/h (++).
+
+Veľkosť výstupu:
+V závislosti od vstupného materiálu a zaťaženia hriadeľov, s podielom naddimenzovaného materiálu napr. pri rozbehu a chode naprázdno.
+
+Základ stroja:
+Uchytený na hákovom nosiči podľa normy EÚ. Robustná a stabilná drviaca jednotka zo špeciálnej ocele pre vyššiu stabilitu a dlhú životnosť. Polomobilné prevedenie.
+
+Varianty pohonu:
+Naftový motor: výkon 368 kW, emisná norma EÚ Stage 5 alebo Stage 2 (kde je povolená).
+Elektrický motor: výkon 2 × 250 kW, možné rôzne značky motorov.
+
+Nádrže:
+Nafta: cca 840 l, AdBlue: cca 64 l
+
+Vykladací dopravník:
+Štandardná šírka 1,4 m, výsypná výška cca 4,7 m.
+
+Technické parametre:
+Krútiaci moment prevodovky: cca 460 000 Nm
+Otáčky hriadeľov: 9 – 36 min⁻¹
+Hlučnosť: cca 86 dBA, pri plnom zaťažení až 111 dBA
+Objem násypky: cca 9 m³
+
+Riadenie a ovládanie:
+Ovládacia jednotka s dotykovým displejom, multifunkčný displej, GPS / FMS systém sledovania. Diaľkové ovládanie: 12-kanálové bezpečnostné rádiové ovládanie.
+
+Nástroje a rezací systém:
+Dvojhriadeľový systém, konštrukcia podľa požiadaviek materiálu, s bočnými hrebeňmi. Voliteľne: sekundárna drviaca lišta, sekundárne rezacie zariadenie.
+
+Lakovanie:
+Časti stroja: RAL 1016 – Sírovo žltá
+Základný rám: RAL 7016 – Antracitová sivá
+Špeciálne lakovanie: na želanie zákazníka (voliteľné).
+
+Rozmery:
+Pracovné rozmery (D × Š × V): 14,5 × 2,8 × 3,3 m
+Transportné rozmery (D × Š × V): 7,1 × 2,8 × 3,3 m
+
+Hmotnosť:
+Bez magnetu: 28,5 t
+S magnetom: 30,4 t
+Plná výbava: 32,5 t`,
+    detailedEn: `Required material:
+Waste wood, old tires, railway sleepers, biomass, green waste, plastics, palms, bulky waste, logs, roots, municipal waste, construction and demolition waste (C&D), scrap, aluminum profiles, metals, mattresses, carpets, etc.
+
+Capacity:
+Variable, depending on input material, type of crushing shafts and feeding uniformity. Example: Wood approx. 32 – 68 t/h (++).
+
+Output size:
+Depending on input material and shaft load, with a proportion of oversized material, e.g. during start-up and idle running.
+
+Machine base:
+Mounted on hook carrier according to EU standard. Robust and stable crushing unit made of special steel for higher stability and long service life. Semi-mobile design.
+
+Drive variants:
+Diesel engine: power 368 kW, EU emission standard Stage 5 or Stage 2 (where permitted).
+Electric motor: power 2 × 250 kW, various motor brands possible.
+
+Tanks:
+Diesel: approx. 840 l, AdBlue: approx. 64 l
+
+Discharge conveyor:
+Standard width 1.4 m, discharge height approx. 4.7 m.
+
+Technical parameters:
+Gearbox torque: approx. 460,000 Nm
+Shaft speed: 9 – 36 min⁻¹
+Noise level: approx. 86 dBA, up to 111 dBA at full load
+Hopper volume: approx. 9 m³
+
+Control and operation:
+Control unit with touch display, multifunctional display, GPS / FMS tracking system. Remote control: 12-channel safety radio control.
+
+Tools and cutting system:
+Dual-shaft system, design according to material requirements, with side combs. Optional: secondary crushing bar, secondary cutting device.
+
+Painting:
+Machine parts: RAL 1016 – Sulfur yellow
+Base frame: RAL 7016 – Anthracite grey
+Special painting: according to customer requirements (optional).
+
+Dimensions:
+Working dimensions (L × W × H): 14.5 × 2.8 × 3.3 m
+Transport dimensions (L × W × H): 7.1 × 2.8 × 3.3 m
+
+Weight:
+Without magnet: 28.5 t
+With magnet: 30.4 t
+Full equipment: 32.5 t`,
     featuresSk: [
-      'Modulárny systém nožov',
-      'Vysoká priepustnosť materiálu',
-      'Optimalizované pre kontinuálnu prevádzku',
-      'Jednoduchá výmena opotrebovaných častí',
-      'Inteligentné riadenie prevádzky',
+      'Kapacita až 68 t/h (drevo)',
+      'Krútiaci moment prevodovky: 460 000 Nm',
+      'Výkon: 368 kW (nafta) alebo 2 × 250 kW (elektro)',
+      'Emisná norma EÚ Stage 5',
+      'Dotyková ovládacia jednotka s GPS/FMS',
+      '12-kanálové rádiové diaľkové ovládanie',
+      'Robustná konštrukcia zo špeciálnej ocele',
+      'Polomobilné prevedenie',
+      'Modulárny rezací systém',
+      'Objem násypky 9 m³',
     ],
     featuresEn: [
-      'Modular knife system',
-      'High material throughput',
-      'Optimized for continuous operation',
-      'Easy replacement of worn parts',
-      'Intelligent operation control',
+      'Capacity up to 68 t/h (wood)',
+      'Gearbox torque: 460,000 Nm',
+      'Power: 368 kW (diesel) or 2 × 250 kW (electric)',
+      'EU emission standard Stage 5',
+      'Touch control unit with GPS/FMS',
+      '12-channel radio remote control',
+      'Robust special steel construction',
+      'Semi-mobile design',
+      'Modular cutting system',
+      'Hopper volume 9 m³',
+    ],
+    optionsSk: [
+      'Náprava kolies - jednoduchá manipulácia so strojom',
+      'Ťažná oj - pre presun stroja na pracovisku',
+      'Pásový podvozok - možnosť s pásmi s reťazovými podložkami',
+      'Magnetický separátor - na oddelenie železných kovov',
+      'Sekundárna drviaca lišta - pre rovnomernú frakciu výstupu',
+      'Nadstavba násypky - zvýšená kapacita plnenia',
+      'Vodný postrek - potlačenie prašnosti',
+      'Zimný balík - predohrev nafty a hydrauliky',
+    ],
+    optionsEn: [
+      'Wheel axle - easy machine handling',
+      'Drawbar - for moving the machine at the workplace',
+      'Track chassis - option with chain pad tracks',
+      'Magnetic separator - for separating ferrous metals',
+      'Secondary crushing bar - for uniform output fraction',
+      'Hopper extension - increased filling capacity',
+      'Water spray - dust suppression',
+      'Winter package - preheating of diesel and hydraulics',
     ],
   },
 };
@@ -102,6 +304,8 @@ const ProductDetailPage = () => {
   const descriptions = productDescriptions[product.id];
   const overview = language === 'en' ? descriptions?.overviewEn : descriptions?.overviewSk;
   const features = language === 'en' ? descriptions?.featuresEn : descriptions?.featuresSk;
+  const detailed = language === 'en' ? descriptions?.detailedEn : descriptions?.detailedSk;
+  const options = language === 'en' ? descriptions?.optionsEn : descriptions?.optionsSk;
   
   // Find suitable challenges
   const suitableChallenges = challenges.filter(c => 
@@ -175,9 +379,35 @@ const ProductDetailPage = () => {
           </div>
         </div>
       </section>
-      
+
+      {/* Detailed Description */}
+      {detailed && (
+        <section className="section-padding bg-surface">
+          <div className="container-industrial">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto"
+            >
+              <h2 className="headline-md text-foreground mb-6 text-center">
+                {t('Podrobný popis', 'Detailed Description')}
+              </h2>
+              <div className="prose prose-lg max-w-none text-muted-foreground">
+                {detailed.split('\n\n').map((paragraph, index) => (
+                  <p key={index} className="mb-4 leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
       {/* Video Section */}
-      <section className="section-padding bg-surface">
+      <section className="section-padding bg-background">
         <div className="container-industrial">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -213,7 +443,7 @@ const ProductDetailPage = () => {
       </section>
       
       {/* Technical Specifications */}
-      <section className="section-padding bg-background">
+      <section className="section-padding bg-surface">
         <div className="container-industrial">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -255,9 +485,46 @@ const ProductDetailPage = () => {
           </div>
         </div>
       </section>
-      
+
+      {/* Optional Equipment */}
+      {options && options.length > 0 && (
+        <section className="section-padding bg-surface">
+          <div className="container-industrial">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="headline-md text-foreground mb-4">
+                {t('Voliteľné vybavenie', 'Optional Equipment')}
+              </h2>
+            </motion.div>
+
+            <div className="max-w-3xl mx-auto">
+              <div className="grid sm:grid-cols-2 gap-4">
+                {options.map((option, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.05 }}
+                    viewport={{ once: true }}
+                    className="flex items-start gap-3 bg-background p-4 rounded-sm"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-foreground">{option}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Downloads */}
-      <section className="section-padding bg-surface">
+      <section className="section-padding bg-background">
         <div className="container-industrial">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -301,7 +568,7 @@ const ProductDetailPage = () => {
       
       {/* Suitable For */}
       {suitableChallenges.length > 0 && (
-        <section className="section-padding bg-background">
+        <section className="section-padding bg-surface">
           <div className="container-industrial">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
