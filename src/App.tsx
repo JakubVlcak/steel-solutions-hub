@@ -18,39 +18,43 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const AppRoutes = () => (
+  <Routes>
+    {/* Slovak Routes */}
+    <Route path="/" element={<HomePage />} />
+    <Route path="/challenges" element={<ChallengesPage />} />
+    <Route path="/challenges/:slug" element={<ChallengeDetailPage />} />
+    <Route path="/produkty" element={<ProductsPage />} />
+    <Route path="/produkty/:slug" element={<ProductDetailPage />} />
+    <Route path="/hriadele" element={<ShaftsPage />} />
+    <Route path="/galeria" element={<GalleryPage />} />
+    <Route path="/kontakt" element={<ContactPage />} />
+    
+    {/* English Routes */}
+    <Route path="/en" element={<HomePage />} />
+    <Route path="/en/challenges" element={<ChallengesPage />} />
+    <Route path="/en/challenges/:slug" element={<ChallengeDetailPage />} />
+    <Route path="/en/products" element={<ProductsPage />} />
+    <Route path="/en/products/:slug" element={<ProductDetailPage />} />
+    <Route path="/en/shafts" element={<ShaftsPage />} />
+    <Route path="/en/gallery" element={<GalleryPage />} />
+    <Route path="/en/contact" element={<ContactPage />} />
+    
+    {/* 404 */}
+    <Route path="*" element={<NotFound />} />
+  </Routes>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <LanguageProvider>
-          <Routes>
-            {/* Slovak Routes */}
-            <Route path="/" element={<HomePage />} />
-            <Route path="/challenges" element={<ChallengesPage />} />
-            <Route path="/challenges/:slug" element={<ChallengeDetailPage />} />
-            <Route path="/produkty" element={<ProductsPage />} />
-            <Route path="/produkty/:slug" element={<ProductDetailPage />} />
-            <Route path="/hriadele" element={<ShaftsPage />} />
-            <Route path="/galeria" element={<GalleryPage />} />
-            <Route path="/kontakt" element={<ContactPage />} />
-            
-            {/* English Routes */}
-            <Route path="/en" element={<HomePage />} />
-            <Route path="/en/challenges" element={<ChallengesPage />} />
-            <Route path="/en/challenges/:slug" element={<ChallengeDetailPage />} />
-            <Route path="/en/products" element={<ProductsPage />} />
-            <Route path="/en/products/:slug" element={<ProductDetailPage />} />
-            <Route path="/en/shafts" element={<ShaftsPage />} />
-            <Route path="/en/gallery" element={<GalleryPage />} />
-            <Route path="/en/contact" element={<ContactPage />} />
-            
-            {/* 404 */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </LanguageProvider>
-      </BrowserRouter>
+      <LanguageProvider>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </LanguageProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
