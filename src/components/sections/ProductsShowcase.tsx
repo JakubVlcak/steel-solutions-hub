@@ -6,6 +6,8 @@ import { products } from '@/data/translations';
 
 import hps15Image from '@/assets/products/hps-1-5.jpg';
 import dualShaftImage from '@/assets/products/dual-shaft-2-2.jpg';
+import phoenixLogo from '@/assets/logos/phoenix.png';
+import worksteelLogo from '@/assets/logos/worksteel-logo.png';
 
 const productImages: Record<string, string> = {
   'hps-1-5': hps15Image,
@@ -30,6 +32,20 @@ const ProductsShowcase = ({ showTitle = true }: ProductsShowcaseProps) => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
+            {/* Partner Logos */}
+            <div className="flex items-center justify-center gap-8 mb-6">
+              <img
+                src={worksteelLogo}
+                alt="WorkSteel"
+                className="h-16 md:h-20 object-contain"
+              />
+              <span className="text-2xl text-muted-foreground font-light">+</span>
+              <img
+                src={phoenixLogo}
+                alt="Phoenix"
+                className="h-16 md:h-20 object-contain"
+              />
+            </div>
             <h2 className="headline-lg text-foreground mb-4">
               {t('Naše produkty', 'Our Products')}
             </h2>

@@ -87,10 +87,11 @@ export const companyInfo = {
   ico: '53109953',
   dic: '2121282174',
   icDph: 'SK2121282174',
-  address: 'Tužina 479',
-  city: '97214 Tužina',
+  address: 'Nádražná 79/28',
+  city: '972 13 Nitrianske Pravno',
   phone: '+421 949 413 320',
   email: 'info@worksteel.eu',
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Nádražná+79%2F28%2C+972+13+Nitrianske+Pravno',
   social: {
     facebook: 'https://www.facebook.com/p/WorkSteel-100063638932516/',
     linkedin: 'https://www.linkedin.com/in/worksteel-worksteel-160955393/',

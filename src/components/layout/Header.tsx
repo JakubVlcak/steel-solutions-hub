@@ -50,8 +50,8 @@ const Header = () => {
       label: t('Hriadele', 'Shafts'),
       path: getLocalizedPath('/hriadele', '/en/shafts'),
       dropdown: [
-        { label: t('Výroba hriadeľov', 'Shaft Manufacturing'), path: getLocalizedPath('/hriadele#vyroba', '/en/shafts#manufacturing') },
-        { label: t('Servis hriadeľov', 'Shaft Service'), path: getLocalizedPath('/hriadele#servis', '/en/shafts#service') },
+        { label: t('Výroba hriadeľov', 'Shaft Manufacturing'), path: getLocalizedPath('/hriadele/vyroba', '/en/shafts/manufacturing') },
+        { label: t('Servis hriadeľov', 'Shaft Service'), path: getLocalizedPath('/hriadele/servis', '/en/shafts/service') },
       ],
     },
     {
@@ -82,7 +82,7 @@ const Header = () => {
               src={logo}
               alt="WorkSteel Logo"
               className={`transition-all duration-300 ${
-                isScrolled ? 'h-8' : 'h-20'
+                isScrolled ? 'h-8 opacity-50' : 'h-20 opacity-100'
               }`}
             />
           </Link>

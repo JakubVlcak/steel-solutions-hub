@@ -9,8 +9,8 @@ const TopBar = () => {
           {/* Left side - Company info */}
           <div className="flex items-center gap-6">
             <span className="font-semibold">{companyInfo.name}</span>
-            <a 
-              href={`https://maps.google.com/?q=${encodeURIComponent(companyInfo.address + ', ' + companyInfo.city)}`}
+            <a
+              href={companyInfo.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 hover:text-accent transition-colors"

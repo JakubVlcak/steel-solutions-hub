@@ -11,6 +11,18 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+// Base path for GitHub Pages deployment
+const BASE_PATH = '/steel-solutions-hub';
+
+// Helper to get path without basename
+const getAppPath = () => {
+  const fullPath = window.location.pathname;
+  if (fullPath.startsWith(BASE_PATH)) {
+    return fullPath.slice(BASE_PATH.length) || '/';
+  }
+  return fullPath;
+};
+
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {
@@ -27,26 +39,28 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const [language, setLanguageState] = useState<Language>(() => {
     // Check initial path for language
     if (typeof window !== 'undefined') {
-      return window.location.pathname.startsWith('/en') ? 'en' : 'sk';
+      const appPath = getAppPath();
+      return appPath.startsWith('/en') ? 'en' : 'sk';
     }
     return 'sk';
   });
-  
+
   // Listen for URL changes
   useEffect(() => {
     const handleLocationChange = () => {
-      const isEnglish = window.location.pathname.startsWith('/en');
+      const appPath = getAppPath();
+      const isEnglish = appPath.startsWith('/en');
       setLanguageState(isEnglish ? 'en' : 'sk');
     };
-    
+
     window.addEventListener('popstate', handleLocationChange);
     return () => window.removeEventListener('popstate', handleLocationChange);
   }, []);
   
   const setLanguage = (lang: Language) => {
-    const currentPath = window.location.pathname;
+    const currentPath = getAppPath();
     let newPath: string;
-    
+
     if (lang === 'en') {
       if (currentPath.startsWith('/en')) {
         newPath = currentPath;
@@ -61,12 +75,16 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
           '/galeria': '/en/gallery',
           '/kontakt': '/en/contact',
         };
-        
+
         // Check for dynamic routes
         if (currentPath.startsWith('/challenges/')) {
           newPath = currentPath.replace('/challenges/', '/en/challenges/');
         } else if (currentPath.startsWith('/produkty/')) {
           newPath = currentPath.replace('/produkty/', '/en/products/');
+        } else if (currentPath === '/hriadele/vyroba') {
+          newPath = '/en/shafts/manufacturing';
+        } else if (currentPath === '/hriadele/servis') {
+          newPath = '/en/shafts/service';
         } else if (currentPath.startsWith('/hriadele/')) {
           newPath = currentPath.replace('/hriadele/', '/en/shafts/');
         } else {
@@ -87,12 +105,16 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
           '/en/gallery': '/galeria',
           '/en/contact': '/kontakt',
         };
-        
+
         // Check for dynamic routes
         if (currentPath.startsWith('/en/challenges/')) {
           newPath = currentPath.replace('/en/challenges/', '/challenges/');
         } else if (currentPath.startsWith('/en/products/')) {
           newPath = currentPath.replace('/en/products/', '/produkty/');
+        } else if (currentPath === '/en/shafts/manufacturing') {
+          newPath = '/hriadele/vyroba';
+        } else if (currentPath === '/en/shafts/service') {
+          newPath = '/hriadele/servis';
         } else if (currentPath.startsWith('/en/shafts/')) {
           newPath = currentPath.replace('/en/shafts/', '/hriadele/');
         } else {
@@ -100,10 +122,14 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         }
       }
     }
-    
+
+    // Construct full URL with basename
+    const fullNewPath = BASE_PATH + newPath;
+    const fullCurrentPath = window.location.pathname;
+
     // Use window.location for navigation to avoid hook issues
-    if (newPath !== currentPath) {
-      window.history.pushState({}, '', newPath);
+    if (fullNewPath !== fullCurrentPath) {
+      window.history.pushState({}, '', fullNewPath);
       window.dispatchEvent(new PopStateEvent('popstate'));
     }
     setLanguageState(lang);

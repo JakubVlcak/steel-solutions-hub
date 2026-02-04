@@ -59,8 +59,8 @@ const Footer = () => {
               {t('Kontakt', 'Contact')}
             </h4>
             <div className="space-y-3">
-              <a 
-                href={`https://maps.google.com/?q=${encodeURIComponent(companyInfo.address + ', ' + companyInfo.city)}`}
+              <a
+                href={companyInfo.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-2 text-primary-foreground/70 hover:text-accent transition-colors"

@@ -166,8 +166,8 @@ const ContactPage = () => {
                   </p>
                 </div>
                 
-                <a 
-                  href={`https://maps.google.com/?q=${encodeURIComponent(companyInfo.address + ', ' + companyInfo.city)}`}
+                <a
+                  href={companyInfo.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-4 text-muted-foreground hover:text-accent transition-colors"

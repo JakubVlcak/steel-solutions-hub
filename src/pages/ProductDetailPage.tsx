@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowRight, Download, Play, Ruler, Weight, Zap, Gauge, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Download, Play, Ruler, Weight, Zap, Gauge, CheckCircle2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { products, challenges } from '@/data/translations';
 import Layout from '@/components/layout/Layout';
@@ -9,9 +10,41 @@ import HeroBanner from '@/components/sections/HeroBanner';
 import hps15Image from '@/assets/products/hps-1-5.jpg';
 import dualShaftImage from '@/assets/products/dual-shaft-2-2.jpg';
 
+// Product gallery images - dynamically import for HPS 1.5
+const hps15GalleryModules = import.meta.glob('@/assets/products/hps-1-5-gallery/*.jpg', { eager: true, import: 'default' });
+const hps15GalleryImages = Object.entries(hps15GalleryModules)
+  .sort(([a], [b]) => {
+    const numA = parseInt(a.match(/(\d+)\.jpg$/)?.[1] || '0');
+    const numB = parseInt(b.match(/(\d+)\.jpg$/)?.[1] || '0');
+    return numA - numB;
+  })
+  .map(([, url]) => url as string);
+
+// Product gallery images - dynamically import for Dual Shaft 2.2
+const dualShaft22GalleryModules = import.meta.glob('@/assets/products/dual-shaft-2-2-gallery/*.jpg', { eager: true, import: 'default' });
+const dualShaft22GalleryImages = Object.entries(dualShaft22GalleryModules)
+  .sort(([a], [b]) => {
+    const numA = parseInt(a.match(/(\d+)\.jpg$/)?.[1] || '0');
+    const numB = parseInt(b.match(/(\d+)\.jpg$/)?.[1] || '0');
+    return numA - numB;
+  })
+  .map(([, url]) => url as string);
+
+// Product galleries map
+const productGalleries: Record<string, string[]> = {
+  'hps-1-5': hps15GalleryImages,
+  'dual-shaft-2-2': dualShaft22GalleryImages,
+};
+
 const productImages: Record<string, string> = {
   'hps-1-5': hps15Image,
   'dual-shaft-2-2': dualShaftImage,
+};
+
+// Product PDF brochures - files in public/downloads folder
+const productPDFs: Record<string, { filename: string; sizeSk: string; sizeEn: string }> = {
+  'hps-1-5': { filename: 'hps-1-5.pdf', sizeSk: 'PDF', sizeEn: 'PDF' },
+  'dual-shaft-2-2': { filename: 'dual-shaft-2-2.pdf', sizeSk: 'PDF', sizeEn: 'PDF' },
 };
 
 const productSpecs: Record<string, { specs: Array<{ icon: any; labelSk: string; labelEn: string; value: string }> }> = {
@@ -277,10 +310,19 @@ Full equipment: 32.5 t`,
 const ProductDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { language, t } = useLanguage();
-  
-  const product = products.find(p => 
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
+
+  const product = products.find(p =>
     language === 'en' ? p.slugEn === slug : p.slugSk === slug
   );
+
+  // Get gallery images for this product
+  const galleryImages = product ? (productGalleries[product.id] || []) : [];
+
+  const openLightbox = (index: number) => setSelectedImage(index);
+  const closeLightbox = () => setSelectedImage(null);
+  const nextImage = () => setSelectedImage((prev) => (prev !== null ? (prev + 1) % galleryImages.length : null));
+  const prevImage = () => setSelectedImage((prev) => (prev !== null ? (prev - 1 + galleryImages.length) % galleryImages.length : null));
   
   if (!product) {
     return (
@@ -420,7 +462,7 @@ const ProductDetailPage = () => {
               {t('Video', 'Video')}
             </h2>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -441,7 +483,107 @@ const ProductDetailPage = () => {
           </motion.div>
         </div>
       </section>
-      
+
+      {/* Product Gallery */}
+      {galleryImages.length > 0 && (
+        <section className="section-padding bg-surface">
+          <div className="container-industrial">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="headline-md text-foreground mb-4">
+                {t('Galéria', 'Gallery')}
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                {t(
+                  'Pozrite si detailné fotografie produktu.',
+                  'View detailed product photos.'
+                )}
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {galleryImages.map((image, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  viewport={{ once: true }}
+                  className="aspect-square rounded-sm overflow-hidden shadow-card cursor-pointer group"
+                  onClick={() => openLightbox(index)}
+                >
+                  <img
+                    src={image}
+                    alt={`${name} ${index + 1}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+            onClick={closeLightbox}
+          >
+            <button
+              className="absolute top-4 right-4 text-white hover:text-accent transition-colors z-10"
+              onClick={closeLightbox}
+            >
+              <X className="w-8 h-8" />
+            </button>
+
+            <button
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-accent transition-colors z-10 p-2"
+              onClick={(e) => {
+                e.stopPropagation();
+                prevImage();
+              }}
+            >
+              <ChevronLeft className="w-10 h-10" />
+            </button>
+
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-accent transition-colors z-10 p-2"
+              onClick={(e) => {
+                e.stopPropagation();
+                nextImage();
+              }}
+            >
+              <ChevronRight className="w-10 h-10" />
+            </button>
+
+            <motion.img
+              key={selectedImage}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              src={galleryImages[selectedImage]}
+              alt={`${name} ${selectedImage + 1}`}
+              className="max-w-[90vw] max-h-[90vh] object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm">
+              {selectedImage + 1} / {galleryImages.length}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Technical Specifications */}
       <section className="section-padding bg-surface">
         <div className="container-industrial">
@@ -523,48 +665,53 @@ const ProductDetailPage = () => {
         </section>
       )}
 
-      {/* Downloads */}
-      <section className="section-padding bg-background">
-        <div className="container-industrial">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-center mb-8"
-          >
-            <h2 className="headline-md text-foreground mb-4">
-              {t('Dokumenty na stiahnutie', 'Downloads')}
-            </h2>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="max-w-md mx-auto"
-          >
-            <a 
-              href="#"
-              className="flex items-center gap-4 bg-background p-4 rounded-sm shadow-card hover:shadow-hover transition-shadow"
+      {/* Downloads - only show if product has PDF */}
+      {productPDFs[product.id] && (
+        <section className="section-padding bg-background">
+          <div className="container-industrial">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center mb-8"
             >
-              <div className="w-12 h-12 bg-destructive/10 rounded-sm flex items-center justify-center flex-shrink-0">
-                <Download className="w-6 h-6 text-destructive" />
-              </div>
-              <div className="flex-1">
-                <p className="font-semibold text-foreground">
-                  {name} - {t('Produktový leták', 'Product Brochure')}
-                </p>
-                <p className="text-sm text-muted-foreground">PDF, 2.4 MB</p>
-              </div>
-              <span className="text-accent font-semibold">
-                {t('Stiahnuť', 'Download')}
-              </span>
-            </a>
-          </motion.div>
-        </div>
-      </section>
+              <h2 className="headline-md text-foreground mb-4">
+                {t('Dokumenty na stiahnutie', 'Downloads')}
+              </h2>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="max-w-md mx-auto"
+            >
+              <a
+                href={`/steel-solutions-hub/downloads/${productPDFs[product.id].filename}`}
+                download
+                className="flex items-center gap-4 bg-background p-4 rounded-sm shadow-card hover:shadow-hover transition-shadow"
+              >
+                <div className="w-12 h-12 bg-destructive/10 rounded-sm flex items-center justify-center flex-shrink-0">
+                  <Download className="w-6 h-6 text-destructive" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-foreground">
+                    {name} - {t('Produktový leták', 'Product Brochure')}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {language === 'en' ? productPDFs[product.id].sizeEn : productPDFs[product.id].sizeSk}
+                  </p>
+                </div>
+                <span className="text-accent font-semibold">
+                  {t('Stiahnuť', 'Download')}
+                </span>
+              </a>
+            </motion.div>
+          </div>
+        </section>
+      )}
       
       {/* Suitable For */}
       {suitableChallenges.length > 0 && (

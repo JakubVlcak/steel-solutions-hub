@@ -12,6 +12,8 @@ import ChallengeDetailPage from "./pages/ChallengeDetailPage";
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ShaftsPage from "./pages/ShaftsPage";
+import ShaftManufacturingPage from "./pages/ShaftManufacturingPage";
+import ShaftServicePage from "./pages/ShaftServicePage";
 import GalleryPage from "./pages/GalleryPage";
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
@@ -27,6 +29,8 @@ const AppRoutes = () => (
     <Route path="/produkty" element={<ProductsPage />} />
     <Route path="/produkty/:slug" element={<ProductDetailPage />} />
     <Route path="/hriadele" element={<ShaftsPage />} />
+    <Route path="/hriadele/vyroba" element={<ShaftManufacturingPage />} />
+    <Route path="/hriadele/servis" element={<ShaftServicePage />} />
     <Route path="/galeria" element={<GalleryPage />} />
     <Route path="/kontakt" element={<ContactPage />} />
     
@@ -37,6 +41,8 @@ const AppRoutes = () => (
     <Route path="/en/products" element={<ProductsPage />} />
     <Route path="/en/products/:slug" element={<ProductDetailPage />} />
     <Route path="/en/shafts" element={<ShaftsPage />} />
+    <Route path="/en/shafts/manufacturing" element={<ShaftManufacturingPage />} />
+    <Route path="/en/shafts/service" element={<ShaftServicePage />} />
     <Route path="/en/gallery" element={<GalleryPage />} />
     <Route path="/en/contact" element={<ContactPage />} />
     
@@ -51,7 +57,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <LanguageProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/steel-solutions-hub">
           <AppRoutes />
         </BrowserRouter>
       </LanguageProvider>
