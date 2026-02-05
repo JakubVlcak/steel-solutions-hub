@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Play } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { challenges, products } from '@/data/translations';
 import Layout from '@/components/layout/Layout';
 import HeroBanner from '@/components/sections/HeroBanner';
 import CTASection from '@/components/sections/CTASection';
+import YouTubeModal from '@/components/ui/YouTubeModal';
 
 // Challenge images
 import commercialWaste from '@/assets/challenges/commercial-waste.jpg';
@@ -225,8 +227,9 @@ Professional processing of construction and demolition waste not only reduces wa
 const ChallengeDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { language, t } = useLanguage();
-  
-  const challenge = challenges.find(c => 
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+
+  const challenge = challenges.find(c =>
     language === 'en' ? c.slugEn === slug : c.slugSk === slug
   );
 
@@ -289,6 +292,39 @@ const ChallengeDetailPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Video Section */}
+      {challenge.youtubeVideoId && (
+        <section className="section-padding bg-surface">
+          <div className="container-industrial">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="max-w-4xl"
+            >
+              <div
+                className="relative aspect-video bg-primary/10 rounded-lg overflow-hidden cursor-pointer group"
+                onClick={() => setIsVideoOpen(true)}
+              >
+                <img
+                  src={`https://img.youtube.com/vi/${challenge.youtubeVideoId}/maxresdefault.jpg`}
+                  alt={name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors" />
+                <button
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 md:w-24 md:h-24 bg-accent/90 hover:bg-accent rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                  aria-label={t('Prehrať video', 'Play video')}
+                >
+                  <Play className="w-10 h-10 md:w-12 md:h-12 text-accent-foreground fill-current ml-1" />
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* Solution Section */}
       <section className="section-padding bg-surface">
@@ -419,6 +455,15 @@ const ChallengeDetailPage = () => {
           </motion.div>
         </div>
       </section>
+
+      {challenge.youtubeVideoId && (
+        <YouTubeModal
+          videoId={challenge.youtubeVideoId}
+          title={name}
+          isOpen={isVideoOpen}
+          onClose={() => setIsVideoOpen(false)}
+        />
+      )}
     </Layout>
   );
 };

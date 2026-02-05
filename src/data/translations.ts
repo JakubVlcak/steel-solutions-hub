@@ -7,6 +7,7 @@ export const challenges = [
     nameEn: 'Commercial Waste',
     descriptionSk: 'Efektívne riešenia pre spracovanie komerčného a priemyselného odpadu.',
     descriptionEn: 'Efficient solutions for processing commercial and industrial waste.',
+    youtubeVideoId: 'KjlTJQ7GpCQ', 
   },
   {
     id: 'rubber-tires',
@@ -16,6 +17,7 @@ export const challenges = [
     nameEn: 'Rubber and Waste Tires',
     descriptionSk: 'Špecializované drviče pre recykláciu pneumatík a gumových materiálov.',
     descriptionEn: 'Specialized shredders for recycling tires and rubber materials.',
+    youtubeVideoId: '12PEBJKfOn0', 
   },
   {
     id: 'automotive-scrap',
@@ -25,6 +27,7 @@ export const challenges = [
     nameEn: 'Automotive and Light Scrap',
     descriptionSk: 'Výkonné stroje pre spracovanie automobilového odpadu a ľahkého šrotu.',
     descriptionEn: 'Powerful machines for processing automotive waste and light scrap.',
+    youtubeVideoId: '', 
   },
   {
     id: 'wood-waste',
@@ -34,6 +37,7 @@ export const challenges = [
     nameEn: 'Natural and Waste Wood',
     descriptionSk: 'Drvenie dreva pre biomasu, štiepky a ďalšie využitie.',
     descriptionEn: 'Wood shredding for biomass, chips, and further processing.',
+    youtubeVideoId: 'gkE1xW8HuK0'
   },
   {
     id: 'paper-cardboard',
@@ -43,6 +47,7 @@ export const challenges = [
     nameEn: 'Paper and Cardboard',
     descriptionSk: 'Optimalizované riešenia pre recykláciu papiera a lepenky.',
     descriptionEn: 'Optimized solutions for paper and cardboard recycling.',
+    youtubeVideoId: '', 
   },
   {
     id: 'construction-waste',
@@ -52,6 +57,7 @@ export const challenges = [
     nameEn: 'Construction and Demolition Waste',
     descriptionSk: 'Robustné stroje pre spracovanie stavebného odpadu a sutiny.',
     descriptionEn: 'Robust machines for processing construction waste and debris.',
+    youtubeVideoId: '3Ick4CdubiU', 
   },
 ];
 

@@ -31,14 +31,14 @@ interface ChallengeCardProps {
 
 const ChallengeCard = ({ challenge, index, large = false }: ChallengeCardProps) => {
   const { language } = useLanguage();
-  
-  const path = language === 'en' 
-    ? `/en/challenges/${challenge.slugEn}` 
+
+  const path = language === 'en'
+    ? `/en/challenges/${challenge.slugEn}`
     : `/challenges/${challenge.slugSk}`;
-  
+
   const name = language === 'en' ? challenge.nameEn : challenge.nameSk;
   const description = language === 'en' ? challenge.descriptionEn : challenge.descriptionSk;
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -82,9 +82,9 @@ interface ChallengesGridProps {
 
 const ChallengesGrid = ({ large = false, showAll = true }: ChallengesGridProps) => {
   const { t } = useLanguage();
-  
+
   const displayChallenges = showAll ? challenges : challenges.slice(0, 6);
-  
+
   return (
     <section className="section-padding bg-surface watermark-pattern">
       <div className="container-industrial">
@@ -105,16 +105,16 @@ const ChallengesGrid = ({ large = false, showAll = true }: ChallengesGridProps) 
             )}
           </p>
         </motion.div>
-        
+
         <div className={`grid gap-4 md:gap-6 ${
-          large 
-            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+          large
+            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
             : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
         }`}>
           {displayChallenges.map((challenge, index) => (
-            <ChallengeCard 
-              key={challenge.id} 
-              challenge={challenge} 
+            <ChallengeCard
+              key={challenge.id}
+              challenge={challenge}
               index={index}
               large={large}
             />

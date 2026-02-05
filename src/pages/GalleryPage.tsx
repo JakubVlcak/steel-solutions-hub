@@ -7,16 +7,56 @@ import HeroBanner from '@/components/sections/HeroBanner';
 
 // Import all gallery images
 import heroMain from '@/assets/hero-main.jpg';
+
+// Products - HPS 1.5
 import hps15 from '@/assets/products/hps-1-5.jpg';
+import hps151 from '@/assets/products/hps-1-5-gallery/hps-1-51.jpg';
+import hps152 from '@/assets/products/hps-1-5-gallery/hps-1-52.jpg';
+import hps153 from '@/assets/products/hps-1-5-gallery/hps-1-53.jpg';
+import hps154 from '@/assets/products/hps-1-5-gallery/hps-1-54.jpg';
+import hps155 from '@/assets/products/hps-1-5-gallery/hps-1-55.jpg';
+import hps156 from '@/assets/products/hps-1-5-gallery/hps-1-56.jpg';
+
+// Products - Dual Shaft
 import dualShaft from '@/assets/products/dual-shaft-2-2.jpg';
+import dualShaftGallery from '@/assets/products/dual-shaft-2-2-gallery/dual-shaft-2-2.jpg';
+
+// Shafts - Manufacturing
 import manufacturing from '@/assets/shafts/manufacturing.jpg';
+import vyrobaHriadelov1 from '@/assets/shafts/manufacturing-gallery/vyroba_hriadelov1.jpg';
+import vyrobaHriadelov2 from '@/assets/shafts/manufacturing-gallery/vyroba_hriadelov2.jpg';
+import vyrobaHriadelov3 from '@/assets/shafts/manufacturing-gallery/vyroba_hriadelov3.jpg';
+import vyrobaHriadelov4 from '@/assets/shafts/manufacturing-gallery/vyroba_hriadelov4.jpg';
+import vyrobaHriadelov5 from '@/assets/shafts/manufacturing-gallery/vyroba_hriadelov5.jpg';
+import vyrobaHriadelov6 from '@/assets/shafts/manufacturing-gallery/vyroba_hriadelov6.jpg';
+
+// Shafts - Service
 import service from '@/assets/shafts/service.jpg';
+import servisHriadelov1 from '@/assets/shafts/service-gallery/servis_hriadelov1.jpg';
+import servisHriadelov2 from '@/assets/shafts/service-gallery/servis_hriadelov2.jpg';
+import servisHriadelov3 from '@/assets/shafts/service-gallery/servis_hriadelov3.jpg';
+import servisHriadelov4 from '@/assets/shafts/service-gallery/servis_hriadelov4.jpg';
+import servisHriadelov5 from '@/assets/shafts/service-gallery/servis_hriadelov5.jpg';
+import servisHriadelov6 from '@/assets/shafts/service-gallery/servis_hriadelov6.jpg';
+import servisHriadelov7 from '@/assets/shafts/service-gallery/servis_hriadelov7.jpg';
+import servisHriadelov8 from '@/assets/shafts/service-gallery/servis_hriadelov8.jpg';
+import servisHriadelov9 from '@/assets/shafts/service-gallery/servis_hriadelov9.jpg';
+import servisHriadelov10 from '@/assets/shafts/service-gallery/servis_hriadelov10.jpg';
+import servisHriadelov11 from '@/assets/shafts/service-gallery/servis_hriadelov11.jpg';
+import servisHriadelov12 from '@/assets/shafts/service-gallery/servis_hriadelov12.jpg';
+import servisHriadelov13 from '@/assets/shafts/service-gallery/servis_hriadelov13.jpg';
+
+// Challenges
 import commercialWaste from '@/assets/challenges/commercial-waste.jpg';
 import rubberTires from '@/assets/challenges/rubber-tires.jpg';
 import automotiveScrap from '@/assets/challenges/automotive-scrap.jpg';
+import cfrpGfrp from '@/assets/challenges/cfrp-gfrp.jpg';
 import woodWaste from '@/assets/challenges/wood-waste.jpg';
+import woodWaste1 from '@/assets/challenges/wood-waste1.jpg';
 import paperCardboard from '@/assets/challenges/paper-cardboard.jpg';
+import paperCardboard1 from '@/assets/challenges/paper-cardboard1.jpg';
 import constructionWaste from '@/assets/challenges/construction-waste.jpg';
+import constructionWaste1 from '@/assets/challenges/construction-waste1.jpg';
 
 interface GalleryImage {
   src: string;
@@ -25,17 +65,54 @@ interface GalleryImage {
 }
 
 const galleryImages: GalleryImage[] = [
+  // Machines
   { src: heroMain, category: 'machines', alt: 'Industrial shredder' },
   { src: hps15, category: 'machines', alt: 'Phoenix Hydro Power Shredder' },
+  { src: hps151, category: 'machines', alt: 'Phoenix Hydro Power Shredder' },
+  { src: hps152, category: 'machines', alt: 'Phoenix Hydro Power Shredder' },
+  { src: hps153, category: 'machines', alt: 'Phoenix Hydro Power Shredder' },
+  { src: hps154, category: 'machines', alt: 'Phoenix Hydro Power Shredder' },
+  { src: hps155, category: 'machines', alt: 'Phoenix Hydro Power Shredder' },
+  { src: hps156, category: 'machines', alt: 'Phoenix Hydro Power Shredder' },
   { src: dualShaft, category: 'machines', alt: 'Dual Shaft Shredder' },
+  { src: dualShaftGallery, category: 'machines', alt: 'Dual Shaft Shredder' },
+
+  // Shafts - Manufacturing
   { src: manufacturing, category: 'shafts', alt: 'Shaft manufacturing' },
+  { src: vyrobaHriadelov1, category: 'shafts', alt: 'Shaft manufacturing' },
+  { src: vyrobaHriadelov2, category: 'shafts', alt: 'Shaft manufacturing' },
+  { src: vyrobaHriadelov3, category: 'shafts', alt: 'Shaft manufacturing' },
+  { src: vyrobaHriadelov4, category: 'shafts', alt: 'Shaft manufacturing' },
+  { src: vyrobaHriadelov5, category: 'shafts', alt: 'Shaft manufacturing' },
+  { src: vyrobaHriadelov6, category: 'shafts', alt: 'Shaft manufacturing' },
+
+  // Shafts - Service
   { src: service, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov1, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov2, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov3, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov4, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov5, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov6, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov7, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov8, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov9, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov10, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov11, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov12, category: 'shafts', alt: 'Shaft service' },
+  { src: servisHriadelov13, category: 'shafts', alt: 'Shaft service' },
+
+  // Manufacturing / Challenges
   { src: commercialWaste, category: 'manufacturing', alt: 'Commercial waste processing' },
   { src: rubberTires, category: 'manufacturing', alt: 'Tire recycling' },
   { src: automotiveScrap, category: 'manufacturing', alt: 'Automotive scrap' },
+  { src: cfrpGfrp, category: 'manufacturing', alt: 'CFRP/GFRP composites' },
   { src: woodWaste, category: 'manufacturing', alt: 'Wood processing' },
+  { src: woodWaste1, category: 'manufacturing', alt: 'Wood processing' },
   { src: paperCardboard, category: 'manufacturing', alt: 'Paper recycling' },
+  { src: paperCardboard1, category: 'manufacturing', alt: 'Paper recycling' },
   { src: constructionWaste, category: 'manufacturing', alt: 'Construction waste' },
+  { src: constructionWaste1, category: 'manufacturing', alt: 'Construction waste' },
 ];
 
 const GalleryPage = () => {
