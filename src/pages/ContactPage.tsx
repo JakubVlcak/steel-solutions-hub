@@ -252,7 +252,7 @@ const ContactPage = () => {
               <h2 className="headline-md text-foreground mb-8">
                 {t('Pošlite nám správu', 'Send us a message')}
               </h2>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -269,7 +269,7 @@ const ContactPage = () => {
                     placeholder={t('Vaše meno', 'Your name')}
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
                     Email *
@@ -285,7 +285,7 @@ const ContactPage = () => {
                     placeholder={t('vas@email.com', 'your@email.com')}
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
                     {t('Telefón', 'Phone')}
@@ -300,7 +300,7 @@ const ContactPage = () => {
                     placeholder="+421 XXX XXX XXX"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="inquiryType" className="block text-sm font-medium text-foreground mb-2">
                     {t('Typ dopytu', 'Inquiry Type')}
@@ -319,7 +319,7 @@ const ContactPage = () => {
                     ))}
                   </select>
                 </div>
-                
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
                     {t('Správa', 'Message')} *
@@ -335,7 +335,7 @@ const ContactPage = () => {
                     placeholder={t('Vaša správa...', 'Your message...')}
                   />
                 </div>
-                
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -357,6 +357,40 @@ const ContactPage = () => {
             </motion.div>
           </div>
         </div>
+      </section>
+
+      {/* Google Map Section */}
+      <section className="bg-surface">
+        <div className="container-industrial py-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="headline-md text-foreground mb-6 text-center">
+              {t('Kde nás nájdete', 'Where to find us')}
+            </h2>
+          </motion.div>
+        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="w-full h-[400px] md:h-[500px]"
+        >
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2621.8!2d18.5489!3d48.8147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4714a0e5c9d5b5c5%3A0x0!2sN%C3%A1dra%C5%BEn%C3%A1%2079%2F28%2C%20972%2013%20Nitrianske%20Pravno!5e0!3m2!1sen!2ssk!4v1700000000000!5m2!1sen!2ssk"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title={t('Mapa WORKSTEEL', 'WORKSTEEL Map')}
+          />
+        </motion.div>
       </section>
     </Layout>
   );

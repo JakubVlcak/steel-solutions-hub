@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import heroImage from '@/assets/hero-main.jpg';
+import InteractiveCard from '@/components/ui/InteractiveCard';
 
 interface HeroBannerProps {
   title: string;
@@ -14,6 +14,7 @@ interface HeroBannerProps {
   ctaSecondary?: {
     label: string;
     path: string;
+    subtitle?: string;
   };
   image?: string;
   small?: boolean;
@@ -31,8 +32,35 @@ const HeroBanner = ({
 }: HeroBannerProps) => {
   const { t } = useLanguage();
   
+  // Generate spikes for the jagged edge
+  const spikeCount = 30;
+  const generateSpikePath = (isTop: boolean) => {
+    const points: string[] = [];
+    const spikeHeight = 10;
+
+    if (isTop) {
+      points.push('0,0');
+      for (let i = 0; i <= spikeCount; i++) {
+        const x = (i / spikeCount) * 100;
+        const y = i % 2 === 0 ? spikeHeight : 0;
+        points.push(`${x},${y}`);
+      }
+      points.push('100,0');
+    } else {
+      points.push('0,100');
+      for (let i = 0; i <= spikeCount; i++) {
+        const x = (i / spikeCount) * 100;
+        const y = i % 2 === 0 ? 100 - spikeHeight : 100;
+        points.push(`${x},${y}`);
+      }
+      points.push('100,100');
+    }
+
+    return points.join(' ');
+  };
+
   return (
-    <section className={`relative ${small ? 'py-16 md:py-24' : 'py-24 md:py-32 lg:py-40'} overflow-hidden`}>
+    <section className={`relative ${small ? 'py-16 md:py-24 pb-24 md:pb-32' : 'py-24 md:py-32 lg:py-40 pb-32 md:pb-40 lg:pb-48'} overflow-visible`}>
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -42,7 +70,39 @@ const HeroBanner = ({
         />
         <div className="absolute inset-0 hero-overlay" />
       </div>
-      
+
+      {/* Top Spikes - cutting into header */}
+      {!small && (
+        <div className="absolute top-0 left-0 right-0 z-20 pointer-events-none" style={{ height: '30px', marginTop: '-1px' }}>
+          <svg
+            viewBox="0 0 100 30"
+            preserveAspectRatio="none"
+            className="w-full h-full"
+            style={{ display: 'block' }}
+          >
+            <polygon
+              points={generateSpikePath(true)}
+              className="fill-background"
+            />
+          </svg>
+        </div>
+      )}
+
+      {/* Bottom Spikes - cutting into next section */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none" style={{ height: '40px', marginBottom: '-1px' }}>
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          className="w-full h-full"
+          style={{ display: 'block' }}
+        >
+          <polygon
+            points={generateSpikePath(false)}
+            className="fill-background"
+          />
+        </svg>
+      </div>
+
       {/* Content */}
       <div className="container-industrial relative z-10">
         {breadcrumbs && (
@@ -90,17 +150,20 @@ const HeroBanner = ({
           )}
           
           {(ctaPrimary || ctaSecondary) && (
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap items-center gap-6">
               {ctaPrimary && (
-                <Link to={ctaPrimary.path} className="btn-accent inline-flex items-center gap-2">
-                  {ctaPrimary.label}
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                <InteractiveCard
+                  title={ctaPrimary.label}
+                  path={ctaPrimary.path}
+                  showArrow={false}
+                />
               )}
               {ctaSecondary && (
-                <Link to={ctaSecondary.path} className="btn-outline-accent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary inline-flex items-center gap-2">
-                  {ctaSecondary.label}
-                </Link>
+                <InteractiveCard
+                  title={ctaSecondary.label}
+                  subtitle={ctaSecondary.subtitle}
+                  path={ctaSecondary.path}
+                />
               )}
             </div>
           )}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Download, Play, Ruler, Weight, Zap, Gauge, CheckCircle2, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Download, Ruler, Weight, Zap, Gauge, CheckCircle2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { products, challenges } from '@/data/translations';
 import Layout from '@/components/layout/Layout';
@@ -42,28 +42,39 @@ const productImages: Record<string, string> = {
 };
 
 // Product PDF brochures - files in public/downloads folder
-const productPDFs: Record<string, { filename: string; sizeSk: string; sizeEn: string }> = {
-  'hps-1-5': { filename: 'hps-1-5.pdf', sizeSk: 'PDF', sizeEn: 'PDF' },
-  'dual-shaft-2-2': { filename: 'dual-shaft-2-2.pdf', sizeSk: 'PDF', sizeEn: 'PDF' },
+const productPDFs: Record<string, Array<{ filename: string; labelSk: string; labelEn: string }>> = {
+  'hps-1-5': [
+    { filename: 'hps-1-5.pdf', labelSk: 'Produktový leták', labelEn: 'Product Brochure' },
+    { filename: 'prt_flyer_2023-01_ENG_V02.pdf', labelSk: 'Shredder 1.5 D – Leták', labelEn: 'Shredder 1.5 D – Flyer' },
+  ],
+  'dual-shaft-2-2': [
+    { filename: 'dual-shaft-2-2.pdf', labelSk: 'Produktový leták', labelEn: 'Product Brochure' },
+  ],
 };
 
 const productSpecs: Record<string, { specs: Array<{ icon: any; labelSk: string; labelEn: string; value: string }> }> = {
   'hps-1-5': {
     specs: [
-      { icon: Ruler, labelSk: 'Rozmery (DxŠxV)', labelEn: 'Dimensions (LxWxH)', value: '3500 x 2200 x 2800 mm' },
-      { icon: Weight, labelSk: 'Hmotnosť', labelEn: 'Weight', value: '12 000 kg' },
-      { icon: Zap, labelSk: 'Výkon motora', labelEn: 'Motor Power', value: '2 x 75 kW' },
-      { icon: Gauge, labelSk: 'Kapacita', labelEn: 'Capacity', value: '15-25 t/h' },
+      { icon: Ruler, labelSk: 'Rozmery (DxŠxV)', labelEn: 'Dimensions (LxWxH)', value: '12,5 x 2,48 x 2,7 m' },
+      { icon: Weight, labelSk: 'Hmotnosť (bez magnetu / s magnetom / plná výbava)', labelEn: 'Weight (w/o magnet / w/ magnet / all options)', value: '17 t / 18,2 t / 18,5 t' },
+      { icon: Zap, labelSk: 'Výkon motora', labelEn: 'Motor Power', value: '294 kW' },
+      { icon: Zap, labelSk: 'Točivý moment', labelEn: 'Torque', value: '260 000 Nm' },
+      { icon: Gauge, labelSk: 'Kapacita', labelEn: 'Capacity', value: '20-40 t/h' },
     ],
   },
   'dual-shaft-2-2': {
     specs: [
       { icon: Ruler, labelSk: 'Pracovné rozmery (DxŠxV)', labelEn: 'Working Dimensions (LxWxH)', value: '14,5 x 2,8 x 3,3 m' },
-      { icon: Weight, labelSk: 'Hmotnosť (plná výbava)', labelEn: 'Weight (full equipment)', value: '32 500 kg' },
-      { icon: Zap, labelSk: 'Výkon motora', labelEn: 'Motor Power', value: '368 kW (diesel) / 2 x 250 kW (electric)' },
+      { icon: Weight, labelSk: 'Hmotnosť (plná výbava)', labelEn: 'Weight (full equipment)', value: '3,2 t' },
+      { icon: Zap, labelSk: 'Točivý moment', labelEn: 'Torque', value: '460 000Nm' },
       { icon: Gauge, labelSk: 'Kapacita (drevo)', labelEn: 'Capacity (wood)', value: '32-68 t/h' },
     ],
   },
+};
+
+// Product YouTube videos
+const productVideos: Record<string, string> = {
+  'hps-1-5': 'O1RtxATXLmw',
 };
 
 const productDescriptions: Record<string, { overviewSk: string; overviewEn: string; featuresSk: string[]; featuresEn: string[]; detailedSk?: string; detailedEn?: string; optionsSk?: string[]; optionsEn?: string[] }> = {
@@ -449,40 +460,43 @@ const ProductDetailPage = () => {
       )}
 
       {/* Video Section */}
-      <section className="section-padding bg-background">
-        <div className="container-industrial">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-center mb-8"
-          >
-            <h2 className="headline-md text-foreground mb-4">
-              {t('Video', 'Video')}
-            </h2>
-          </motion.div>
+      {productVideos[product.id] && (
+        <section className="section-padding bg-background">
+          <div className="container-industrial">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center mb-8"
+            >
+              <h2 className="headline-md text-foreground mb-4">
+                {t('Video', 'Video')}
+              </h2>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto"
-          >
-            <div className="aspect-video bg-primary/10 rounded-sm flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Play className="w-10 h-10 text-accent" />
-                </div>
-                <p className="text-muted-foreground">
-                  {t('YouTube video bude vložené tu', 'YouTube video will be embedded here')}
-                </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto"
+            >
+              <div className="aspect-video rounded-sm overflow-hidden shadow-card">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/${productVideos[product.id]}`}
+                  title={name}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
               </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* Product Gallery */}
       {galleryImages.length > 0 && (
@@ -665,8 +679,8 @@ const ProductDetailPage = () => {
         </section>
       )}
 
-      {/* Downloads - only show if product has PDF */}
-      {productPDFs[product.id] && (
+      {/* Downloads - only show if product has PDFs */}
+      {productPDFs[product.id] && productPDFs[product.id].length > 0 && (
         <section className="section-padding bg-background">
           <div className="container-industrial">
             <motion.div
@@ -681,34 +695,36 @@ const ProductDetailPage = () => {
               </h2>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="max-w-md mx-auto"
-            >
-              <a
-                href={`/steel-solutions-hub/downloads/${productPDFs[product.id].filename}`}
-                download
-                className="flex items-center gap-4 bg-background p-4 rounded-sm shadow-card hover:shadow-hover transition-shadow"
-              >
-                <div className="w-12 h-12 bg-destructive/10 rounded-sm flex items-center justify-center flex-shrink-0">
-                  <Download className="w-6 h-6 text-destructive" />
-                </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-foreground">
-                    {name} - {t('Produktový leták', 'Product Brochure')}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {language === 'en' ? productPDFs[product.id].sizeEn : productPDFs[product.id].sizeSk}
-                  </p>
-                </div>
-                <span className="text-accent font-semibold">
-                  {t('Stiahnuť', 'Download')}
-                </span>
-              </a>
-            </motion.div>
+            <div className="max-w-md mx-auto space-y-4">
+              {productPDFs[product.id].map((pdf, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <a
+                    href={`/steel-solutions-hub/downloads/${pdf.filename}`}
+                    download
+                    className="flex items-center gap-4 bg-background p-4 rounded-sm shadow-card hover:shadow-hover transition-shadow"
+                  >
+                    <div className="w-12 h-12 bg-destructive/10 rounded-sm flex items-center justify-center flex-shrink-0">
+                      <Download className="w-6 h-6 text-destructive" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-semibold text-foreground">
+                        {language === 'en' ? pdf.labelEn : pdf.labelSk}
+                      </p>
+                      <p className="text-sm text-muted-foreground">PDF</p>
+                    </div>
+                    <span className="text-accent font-semibold">
+                      {t('Stiahnuť', 'Download')}
+                    </span>
+                  </a>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
       )}
