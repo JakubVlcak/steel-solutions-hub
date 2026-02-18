@@ -45,7 +45,7 @@ const productImages: Record<string, string> = {
 const productPDFs: Record<string, Array<{ filename: string; labelSk: string; labelEn: string }>> = {
   'hps-1-5': [
     { filename: 'hps-1-5.pdf', labelSk: 'Produktový leták', labelEn: 'Product Brochure' },
-    { filename: 'prt_flyer_2023-01_ENG_V02.pdf', labelSk: 'Shredder 1.5 D – Leták', labelEn: 'Shredder 1.5 D – Flyer' },
+    { filename: 'prt_HPS-1.5_technisches_datenblatt_2022-01-10_EN.pdf', labelSk: 'Technický dátový list HPS-1.5 D', labelEn: 'Technical Data Sheet HPS-1.5 D' },
   ],
   'dual-shaft-2-2': [
     { filename: 'dual-shaft-2-2.pdf', labelSk: 'Produktový leták', labelEn: 'Product Brochure' },
