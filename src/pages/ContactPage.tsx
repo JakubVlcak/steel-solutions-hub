@@ -164,7 +164,7 @@ const ContactPage = () => {
                     {companyInfo.name}
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    IČO: {companyInfo.ico} | DIČ: {companyInfo.dic}
+                    IČO: {companyInfo.ico} | DIČ: {companyInfo.dic} | IČ DPH: {companyInfo.icDph}
                   </p>
                 </div>
                 
