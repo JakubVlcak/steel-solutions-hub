@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Linkedin, Instagram, Youtube, Phone, Mail, MapPin } from 'lucide-react';
+import { Facebook, Linkedin, Instagram, Phone, Mail, MapPin } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { companyInfo } from '@/data/translations';
 
@@ -133,12 +133,12 @@ const Footer = () => {
               © {new Date().getFullYear()} {companyInfo.name}. {t('Všetky práva vyhradené.', 'All rights reserved.')}
             </p>
             <div className="flex items-center gap-6">
-              <span className="hover:text-accent transition-colors cursor-pointer">
+              <Link
+                to={language === 'en' ? '/en/privacy-policy' : '/ochrana-osobnych-udajov'}
+                className="hover:text-accent transition-colors"
+              >
                 {t('Ochrana osobných údajov', 'Privacy Policy')}
-              </span>
-              <span className="hover:text-accent transition-colors cursor-pointer">
-                Cookies
-              </span>
+              </Link>
             </div>
           </div>
         </div>

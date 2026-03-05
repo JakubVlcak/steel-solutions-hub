@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Facebook, Linkedin, Instagram, Send, CheckCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -22,6 +22,7 @@ const ContactPage = () => {
     inquiryType: '',
     message: '',
   });
+  const [gdprConsent, setGdprConsent] = useState(false);
   
   const homePath = language === 'en' ? '/en' : '/';
   
@@ -116,6 +117,7 @@ const ContactPage = () => {
                 onClick={() => {
                   setIsSubmitted(false);
                   setFormData({ name: '', email: '', phone: '', inquiryType: '', message: '' });
+                  setGdprConsent(false);
                 }}
                 className="btn-accent"
               >
@@ -336,9 +338,37 @@ const ContactPage = () => {
                   />
                 </div>
 
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="gdprConsent"
+                    required
+                    checked={gdprConsent}
+                    onChange={(e) => setGdprConsent(e.target.checked)}
+                    className="mt-1 w-4 h-4 accent-accent cursor-pointer flex-shrink-0"
+                  />
+                  <label htmlFor="gdprConsent" className="text-sm text-muted-foreground cursor-pointer">
+                    {t(
+                      'Súhlasím so spracovaním osobných údajov v súlade s ',
+                      'I agree to the processing of my personal data in accordance with the '
+                    )}
+                    <Link
+                      to={language === 'en' ? '/en/privacy-policy' : '/ochrana-osobnych-udajov'}
+                      className="text-accent hover:underline"
+                      target="_blank"
+                    >
+                      {t('podmienkami ochrany osobných údajov', 'Privacy Policy')}
+                    </Link>
+                    {t(
+                      ' za účelom vybavenia môjho dopytu.',
+                      ' for the purpose of handling my inquiry.'
+                    )} *
+                  </label>
+                </div>
+
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !gdprConsent}
                   className="btn-accent w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (

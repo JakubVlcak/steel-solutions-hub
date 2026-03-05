@@ -16,6 +16,7 @@ import ShaftManufacturingPage from "./pages/ShaftManufacturingPage";
 import ShaftServicePage from "./pages/ShaftServicePage";
 import GalleryPage from "./pages/GalleryPage";
 import ContactPage from "./pages/ContactPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,7 +34,8 @@ const AppRoutes = () => (
     <Route path="/hriadele/servis" element={<ShaftServicePage />} />
     <Route path="/galeria" element={<GalleryPage />} />
     <Route path="/kontakt" element={<ContactPage />} />
-    
+    <Route path="/ochrana-osobnych-udajov" element={<PrivacyPolicyPage />} />
+
     {/* English Routes */}
     <Route path="/en" element={<HomePage />} />
     <Route path="/en/challenges" element={<ChallengesPage />} />
@@ -45,7 +47,8 @@ const AppRoutes = () => (
     <Route path="/en/shafts/service" element={<ShaftServicePage />} />
     <Route path="/en/gallery" element={<GalleryPage />} />
     <Route path="/en/contact" element={<ContactPage />} />
-    
+    <Route path="/en/privacy-policy" element={<PrivacyPolicyPage />} />
+
     {/* 404 */}
     <Route path="*" element={<NotFound />} />
   </Routes>
@@ -56,11 +59,11 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <LanguageProvider>
-        <BrowserRouter basename="/steel-solutions-hub">
+      <BrowserRouter basename="/steel-solutions-hub">
+        <LanguageProvider>
           <AppRoutes />
-        </BrowserRouter>
-      </LanguageProvider>
+        </LanguageProvider>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );

@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { products, challenges } from '@/data/translations';
 
 type Language = 'sk' | 'en';
 
@@ -11,17 +13,20 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// Base path for GitHub Pages deployment
-const BASE_PATH = '/steel-solutions-hub';
+// Build slug mappings from translations data
+const productSlugSkToEn: Record<string, string> = {};
+const productSlugEnToSk: Record<string, string> = {};
+products.forEach(p => {
+  productSlugSkToEn[p.slugSk] = p.slugEn;
+  productSlugEnToSk[p.slugEn] = p.slugSk;
+});
 
-// Helper to get path without basename
-const getAppPath = () => {
-  const fullPath = window.location.pathname;
-  if (fullPath.startsWith(BASE_PATH)) {
-    return fullPath.slice(BASE_PATH.length) || '/';
-  }
-  return fullPath;
-};
+const challengeSlugSkToEn: Record<string, string> = {};
+const challengeSlugEnToSk: Record<string, string> = {};
+challenges.forEach(c => {
+  challengeSlugSkToEn[c.slugSk] = c.slugEn;
+  challengeSlugEnToSk[c.slugEn] = c.slugSk;
+});
 
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
@@ -36,29 +41,24 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [language, setLanguageState] = useState<Language>(() => {
-    // Check initial path for language
     if (typeof window !== 'undefined') {
-      const appPath = getAppPath();
-      return appPath.startsWith('/en') ? 'en' : 'sk';
+      return location.pathname.startsWith('/en') ? 'en' : 'sk';
     }
     return 'sk';
   });
 
-  // Listen for URL changes
-  useEffect(() => {
-    const handleLocationChange = () => {
-      const appPath = getAppPath();
-      const isEnglish = appPath.startsWith('/en');
-      setLanguageState(isEnglish ? 'en' : 'sk');
-    };
+  // Sync language state with URL on location changes
+  React.useEffect(() => {
+    const isEnglish = location.pathname.startsWith('/en');
+    setLanguageState(isEnglish ? 'en' : 'sk');
+  }, [location.pathname]);
 
-    window.addEventListener('popstate', handleLocationChange);
-    return () => window.removeEventListener('popstate', handleLocationChange);
-  }, []);
-  
   const setLanguage = (lang: Language) => {
-    const currentPath = getAppPath();
+    const currentPath = location.pathname;
     let newPath: string;
 
     if (lang === 'en') {
@@ -74,13 +74,18 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
           '/hriadele': '/en/shafts',
           '/galeria': '/en/gallery',
           '/kontakt': '/en/contact',
+          '/ochrana-osobnych-udajov': '/en/privacy-policy',
         };
 
-        // Check for dynamic routes
+        // Check for dynamic routes with slug translation
         if (currentPath.startsWith('/challenges/')) {
-          newPath = currentPath.replace('/challenges/', '/en/challenges/');
+          const skSlug = currentPath.replace('/challenges/', '');
+          const enSlug = challengeSlugSkToEn[skSlug] || skSlug;
+          newPath = `/en/challenges/${enSlug}`;
         } else if (currentPath.startsWith('/produkty/')) {
-          newPath = currentPath.replace('/produkty/', '/en/products/');
+          const skSlug = currentPath.replace('/produkty/', '');
+          const enSlug = productSlugSkToEn[skSlug] || skSlug;
+          newPath = `/en/products/${enSlug}`;
         } else if (currentPath === '/hriadele/vyroba') {
           newPath = '/en/shafts/manufacturing';
         } else if (currentPath === '/hriadele/servis') {
@@ -104,13 +109,18 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
           '/en/shafts': '/hriadele',
           '/en/gallery': '/galeria',
           '/en/contact': '/kontakt',
+          '/en/privacy-policy': '/ochrana-osobnych-udajov',
         };
 
-        // Check for dynamic routes
+        // Check for dynamic routes with slug translation
         if (currentPath.startsWith('/en/challenges/')) {
-          newPath = currentPath.replace('/en/challenges/', '/challenges/');
+          const enSlug = currentPath.replace('/en/challenges/', '');
+          const skSlug = challengeSlugEnToSk[enSlug] || enSlug;
+          newPath = `/challenges/${skSlug}`;
         } else if (currentPath.startsWith('/en/products/')) {
-          newPath = currentPath.replace('/en/products/', '/produkty/');
+          const enSlug = currentPath.replace('/en/products/', '');
+          const skSlug = productSlugEnToSk[enSlug] || enSlug;
+          newPath = `/produkty/${skSlug}`;
         } else if (currentPath === '/en/shafts/manufacturing') {
           newPath = '/hriadele/vyroba';
         } else if (currentPath === '/en/shafts/service') {
@@ -123,26 +133,20 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       }
     }
 
-    // Construct full URL with basename
-    const fullNewPath = BASE_PATH + newPath;
-    const fullCurrentPath = window.location.pathname;
-
-    // Use window.location for navigation to avoid hook issues
-    if (fullNewPath !== fullCurrentPath) {
-      window.history.pushState({}, '', fullNewPath);
-      window.dispatchEvent(new PopStateEvent('popstate'));
+    if (newPath !== currentPath) {
+      navigate(newPath);
     }
     setLanguageState(lang);
   };
-  
+
   const t = (sk: string, en: string): string => {
     return language === 'en' ? en : sk;
   };
-  
+
   const getLocalizedPath = (skPath: string, enPath: string): string => {
     return language === 'en' ? enPath : skPath;
   };
-  
+
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t, getLocalizedPath }}>
       {children}
